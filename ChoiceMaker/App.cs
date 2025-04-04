@@ -9,51 +9,38 @@ namespace ChoiceMaker
 {
     class App
     {
+        //JESUS PLS
         public List<string> Choices { get; set; }
-        public string Hatch { get; set; }
+        public string TakeTheWheel { get; set; }
 
         public App()
         {
-            Choices = new()
-            {
+            Choices = new();
+            TakeTheWheel = "";
+            Console.Write("Enter a selection, or type 'go' to recieve a random choice. \n\n");
 
-            };
-
-            Hatch = "";
             do
             {
+
                 PromptForChoice();
-            } while (Hatch.ToLower() != "start");
+            } while (TakeTheWheel.ToLower() != "go");
+
+            if (EmptyListCheck())
+            {
+                Remark("No choices found. Convenient.");
+                return;
+            }
 
             Random rando = new Random();
             int index = rando.Next(0, Choices.Count); 
+            string activity = Choices[index];
 
-            string randomElement = Choices[index];
-
-            Console.WriteLine("Today's activity: " + randomElement);
-            Console.ReadLine();
-        }
-
-        public void ShowAllChoices()
-        {
-            foreach (string c in Choices)
-            {
-                if (Choices != null)
-                {
-                    Console.Clear();
-                    Console.Write(c + "\n");
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("Your list of choices is empty.");
-                }
-            }
+            ShowEndChoice(activity);
+            FOMO();
         }
 
         public void PromptForChoice()
-        {
-            Console.Write("Add a selection (or type start to show choices): \n");
+        {          
             string selection = ReadChoice();
             AddOrStart(selection);          
         }
@@ -66,13 +53,42 @@ namespace ChoiceMaker
 
         private void AddOrStart(string toCheck)
         {
-            if (toCheck.ToLower() != "start")
+            if (toCheck.ToLower() != "go")
             {
                 Choices.Add(toCheck);
             }else
             {
-                Hatch = "start";
+                TakeTheWheel = "go";
             }
+        }
+
+        private bool EmptyListCheck()
+        {
+            return Choices.Count == 0;
+        }
+
+        private void Remark(string message)
+        {
+            Console.Clear();
+            Console.WriteLine(message);
+            Console.ReadLine();
+        }
+
+        private void ShowEndChoice(string activity)
+        {
+            Console.Clear();
+            Console.WriteLine("Chosen activity: " + activity + ".");
+            Console.ReadLine();
+        }
+
+        private void FOMO()
+        {
+            Console.WriteLine("In case you forgot what you won't be doing.");
+            foreach (string c in Choices)
+            {
+                Console.Write(c + "\n");
+            }
+            Console.ReadLine();
         }
     }
 }
