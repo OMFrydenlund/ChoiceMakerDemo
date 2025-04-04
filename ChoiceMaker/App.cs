@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChoiceMaker
+namespace ChooHoose
 {
     class App
     {
@@ -18,7 +18,7 @@ namespace ChoiceMaker
         {
             Choices = new();
             TakeTheWheel = "";
-            Console.Write("Enter an activity, or type 'go' for a random one from your list.\n\n") ;
+            Console.Write("Enter your choices, then type 'go' to not actually choose something yourself.\n\n") ;
 
             do
             {
@@ -37,7 +37,7 @@ namespace ChoiceMaker
             string activity = Choices[index];
 
             ShowEndChoice(activity);
-            //FOMO();
+            FOMO(activity);
         }
 
         private void PromptForChoice()
@@ -82,12 +82,15 @@ namespace ChoiceMaker
             Console.ReadLine();
         }
 
-        private void FOMO()
+        private void FOMO(string activity)
         {
-            Console.WriteLine("In case you forgot what you won't be doing.");
-            foreach (string c in Choices)
+            Console.WriteLine("You WILL miss out on these:\n");
+            foreach (string choice in Choices)
             {
-                Console.Write(c + "\n");
+                if (choice != activity)
+                {
+                    Console.Write(" * " + choice + " (=\n");
+                }                
             }
             Console.ReadLine();
         }
