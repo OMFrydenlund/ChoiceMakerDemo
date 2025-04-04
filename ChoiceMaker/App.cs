@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace ChoiceMaker
         {
             Choices = new();
             TakeTheWheel = "";
-            Console.Write("Enter a selection, or type 'go' to recieve a random choice. \n\n");
+            Console.Write("Enter an activity, or type 'go' for a random one from your list.\n\n") ;
 
             do
             {
@@ -36,10 +37,10 @@ namespace ChoiceMaker
             string activity = Choices[index];
 
             ShowEndChoice(activity);
-            FOMO();
+            //FOMO();
         }
 
-        public void PromptForChoice()
+        private void PromptForChoice()
         {          
             string selection = ReadChoice();
             AddOrStart(selection);          
